@@ -36,9 +36,9 @@ class CryptoData:
             raw_data_columns['Close'].append(float(raw[4]))
 
         self.data = pd.DataFrame(raw_data_columns).tail(max_candles_list)
-        self.elaborateGraph()
+        self.first_elaborate_graph()
 
-    def elaborateGraph(self):
+    def first_elaborate_graph(self):
         layout = Layout(plot_bgcolor='rgba(0, 0, 0, 1)')
 
         candles = go.Candlestick(x=self.data.index, open=self.data.Open, high=self.data.High, low=self.data.Low, close=self.data.Close)
@@ -51,7 +51,10 @@ class CryptoData:
             title=str(self.symbol) + " " + str(self.interval)
         )
 
-    def showGraph(self):
+    def show_graph_in_browser(self):
         self.graph.show()
+
+    def export_graph_image(self, name):
+        self.graph.write_image(name + ".png")
 
 
